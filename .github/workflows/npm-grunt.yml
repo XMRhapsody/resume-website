@@ -1,0 +1,50 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+        # 如需在多个Node.js版本上测试，请取消下面注释并添加其他版本
+        # node-version: [14.x, 16.x, 18.x]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: 使用 Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - name: 安装依赖
+      run: npm ci
+    - name: 设置 ESLint 配置
+      run: |
+        if [ ! -f .eslintrc.json ]; then
+          echo '{
+            "extends": "next/core-web-vitals"
+          }' > .eslintrc.json
+        fi
+    - name: 代码规范检查
+      # 使用非交互式模式运行 lint
+      run: npx next lint --no-cache
+    - name: 构建项目
+      run: npm run build
+    - name: 运行测试（如果有）
+      run: npm test
+      # 如果项目中没有测试脚本，请取消下面的注释
+      continue-on-error: true
+    
+    # 如果需要部署到GitHub Pages
+    # - name: 部署到GitHub Pages
+    #   uses: JamesIves/github-pages-deploy-action@v4
+    #   with:
+    #     folder: .next # 或者其他输出目录
+    #     branch: gh-pages 
