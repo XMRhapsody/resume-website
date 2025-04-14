@@ -1,36 +1,96 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 个人简历网站
 
-## Getting Started
+这是一个使用Next.js 14构建的个人简历网站，支持在线编辑和实时预览。
 
-First, run the development server:
+## 功能特点
+
+- 响应式设计，适配各种屏幕尺寸
+- 管理员登录系统，保护编辑功能
+- 在线编辑简历内容
+- 用户管理功能
+- 简洁美观的界面设计
+
+## 安装与运行
+
+确保你的开发环境中安装了Node.js 18或更高版本。
 
 ```bash
+# 安装依赖
+npm install
+
+# 开发模式运行
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# 构建项目
+npm run build
+
+# 生产模式运行
+npm run start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 登录系统
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+本项目包含一个完整的用户认证系统，默认管理员账户：
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- 用户名: admin
+- 密码: admin123
 
-## Learn More
+### 权限控制
 
-To learn more about Next.js, take a look at the following resources:
+系统支持两种用户角色：
+- 管理员（ADMIN）：拥有所有权限，包括管理用户和编辑简历
+- 普通用户（USER）：仅有有限权限
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 如何使用
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. 访问 `/login` 页面进行登录
+2. 登录成功后，管理员将被重定向到管理控制台
+3. 在管理控制台中，可以：
+   - 编辑简历内容
+   - 管理用户（添加、查看）
 
-## Deploy on Vercel
+## 文件结构
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+resume-website/
+├── src/
+│   ├── app/                 # 应用页面
+│   │   ├── api/             # API路由
+│   │   │   ├── auth/        # 认证相关API
+│   │   │   ├── users/       # 用户管理API
+│   │   │   └── ...
+│   │   ├── admin/           # 管理界面
+│   │   ├── login/           # 登录页面
+│   │   └── edit/            # 简历编辑页面
+│   ├── components/          # 可复用组件
+│   ├── lib/                 # 工具函数
+│   ├── data/                # 数据和默认值
+│   └── types/               # TypeScript类型定义
+├── public/                  # 静态资源
+└── data/                    # 数据存储目录（运行时创建）
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 数据存储
+
+简历数据和用户信息存储在JSON文件中，位于`data/`目录下：
+- `users.json` - 用户信息
+- `resume-data.json` - 简历内容
+- `edit-history.json` - 编辑历史记录
+
+## 部署
+
+本项目可以轻松部署到任何支持Node.js的服务器上，使用提供的`deploy.sh`脚本：
+
+```bash
+# 确保脚本有执行权限
+chmod +x deploy.sh
+
+# 执行部署脚本
+./deploy.sh
+```
+
+## 安全注意事项
+
+- 生产环境中，应该更改JWT密钥（在环境变量中设置`JWT_SECRET`）
+- 定期更改管理员密码
+- 确保服务器具有适当的权限设置
