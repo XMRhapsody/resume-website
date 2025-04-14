@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 设置变量
-SERVER_IP="43.154.86.159"
+SERVER_IP=""
 SERVER_USER="root"
 REMOTE_DIR="/var/www/resume-website"
 
