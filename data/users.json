@@ -7,14 +7,5 @@
     "role": "admin",
     "createdAt": "2025-04-14T08:26:34.020Z",
     "lastLogin": "2025-04-14T08:48:14.245Z"
-  },
-  {
-    "username": "huyast111",
-    "password": "$2b$10$KDIMrN1mwjjOWd/biNTpP.uaz3jN8VMlH/d6xv69cPKKdkRRWmq8G",
-    "email": "huyast111@qq.com",
-    "role": "user",
-    "id": "d2021291-664a-43a5-8abb-7c7e8b6a8d01",
-    "createdAt": "2025-04-14T08:41:39.363Z",
-    "lastLogin": "2025-04-14T08:41:46.215Z"
   }
 ]
