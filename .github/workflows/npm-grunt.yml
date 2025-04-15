@@ -12,9 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x]
-        # 如需在多个Node.js版本上测试，请取消下面注释并添加其他版本
-        # node-version: [14.x, 16.x, 18.x]
+        node-version: [14.x, 16.x, 18.x]
 
     steps:
     - uses: actions/checkout@v3
